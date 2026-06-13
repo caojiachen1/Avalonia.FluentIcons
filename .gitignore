@@ -29,6 +29,7 @@ bld/
 **/[Pp]ackages/*
 !**/[Pp]ackages/build/
 *.nupkg
+!/Avalonia.FluentIcons.*.nupkg
 **/packages/repositories.config
 project.lock.json
 project.fragment.lock.json
