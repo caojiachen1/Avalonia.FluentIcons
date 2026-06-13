@@ -17,6 +17,8 @@ public partial class HomePage : UserControl
         var t = LocalizationService.T;
         this.FindControl<TextBlock>("QuickPreviewTitle")!.Text = t("home.quick_preview");
         this.FindControl<TextBlock>("GetStartedTitle")!.Text = t("home.get_started");
+        this.FindControl<TextBlock>("NugetInstallLabel")!.Text = t("home.nuget_install");
+        this.FindControl<TextBlock>("SourceCodeLabel")!.Text = t("home.source_code");
         this.FindControl<TextBlock>("Step1Text")!.Text = t("home.step1");
         this.FindControl<TextBlock>("Step2Text")!.Text = t("home.step2");
         this.FindControl<TextBlock>("Step3Text")!.Text = t("home.step3");

@@ -33,9 +33,33 @@ Avalonia.FluentIcons/
 
 ### Quick Start
 
-#### 1. Add Project Reference
+#### Option 1: Install via NuGet Package (Local)
 
-Add a project reference in your Avalonia application's `.csproj`:
+The `.nupkg` file is included in the repository root for local use. To install:
+
+1. Place `Avalonia.FluentIcons.1.0.0.nupkg` in a local folder
+2. Add a local NuGet source in `nuget.config`:
+```xml
+<packageSources>
+  <add key="local" value="./path/to/nupkg/folder" />
+</packageSources>
+```
+3. Install:
+```bash
+dotnet add package Avalonia.FluentIcons --version 1.0.0
+```
+
+Or add directly in `.csproj`:
+
+```xml
+<ItemGroup>
+  <PackageReference Include="Avalonia.FluentIcons" Version="1.0.0" />
+</ItemGroup>
+```
+
+#### Option 2: Project Reference (Source Code)
+
+If you prefer to use the source code directly, add a project reference in your `.csproj`:
 
 ```xml
 <ItemGroup>

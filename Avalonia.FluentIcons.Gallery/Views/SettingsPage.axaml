@@ -52,7 +52,7 @@
                         </Button>
                         <Button x:Name="WpfuiButton" Click="WpfuiButton_Click">
                             <StackPanel Orientation="Horizontal" Spacing="8">
-                                <icons:SymbolIcon Symbol="ArrowUpRight24" FontSize="16"/>
+                                <icons:SymbolIcon Symbol="Open24" FontSize="16"/>
                                 <TextBlock x:Name="WpfuiButtonText" Text="Original wpfui Project" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>

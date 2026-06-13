@@ -16,7 +16,9 @@ public partial class TutorialPage : UserControl
     {
         var t = LocalizationService.T;
         this.FindControl<TextBlock>("Step1Title")!.Text = t("tutorial.step1_title");
-        this.FindControl<TextBlock>("Step1Desc")!.Text = t("tutorial.step1_desc");
+        this.FindControl<TextBlock>("NugetInstallTitle")!.Text = t("tutorial.nuget_install");
+        this.FindControl<TextBlock>("NugetCsprojTitle")!.Text = t("tutorial.nuget_csproj");
+        this.FindControl<TextBlock>("SourceCodeTitle")!.Text = t("tutorial.source_code");
         this.FindControl<TextBlock>("Step1Note")!.Text = t("tutorial.step1_note");
         this.FindControl<TextBlock>("Step2Title")!.Text = t("tutorial.step2_title");
         this.FindControl<TextBlock>("Step2Desc")!.Text = t("tutorial.step2_desc");
