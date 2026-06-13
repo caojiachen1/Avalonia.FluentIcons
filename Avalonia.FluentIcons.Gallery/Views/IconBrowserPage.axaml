@@ -1,0 +1,165 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:icons="using:Avalonia.FluentIcons"
+             xmlns:ctrl="using:Avalonia.FluentIcons.Gallery.Controls"
+             xmlns:vm="using:Avalonia.FluentIcons.Gallery.ViewModels"
+             x:Class="Avalonia.FluentIcons.Gallery.IconBrowserPage"
+             x:DataType="vm:IconBrowserViewModel">
+
+    <Grid ColumnDefinitions="*,360">
+        <!-- Left: Search + Virtualized Icon Grid -->
+        <Grid Grid.Column="0" RowDefinitions="Auto,Auto,*">
+
+            <!-- Search Bar -->
+            <Border Grid.Row="0" Padding="40,10,40,6">
+                <Grid ColumnDefinitions="*,Auto">
+                    <TextBox x:Name="SearchBox" Grid.Column="0"
+                             Watermark="Search icons... (e.g. Home, Settings, Star)"
+                             Text="{Binding SearchText, Mode=TwoWay}"
+                             FontSize="14" Height="36"/>
+                    <Button x:Name="BtnClear" Grid.Column="1" Margin="8,0,0,0" Padding="10,4"
+                            Content="Clear" Click="ClearSearch_Click"
+                            VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+
+            <!-- Status Bar -->
+            <Border Grid.Row="1" Padding="40,0,40,6">
+                <StackPanel Orientation="Horizontal" Spacing="0">
+                    <TextBlock x:Name="StatusShowing" FontSize="12" Opacity="0.55" Text="Showing "/>
+                    <TextBlock FontSize="12" Opacity="0.55" Text="{Binding FilteredCount, Mode=OneWay}"/>
+                    <TextBlock x:Name="StatusOf" FontSize="12" Opacity="0.55" Text=" of "/>
+                    <TextBlock FontSize="12" Opacity="0.55" Text="{Binding TotalCount, Mode=OneWay}"/>
+                    <TextBlock x:Name="StatusIcons" FontSize="12" Opacity="0.55" Text=" icons"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Virtualized Wrap Grid -->
+            <ScrollViewer Grid.Row="2" Margin="40,0,0,8" Padding="0,0,12,0">
+                <ctrl:VirtualizingWrapGrid x:Name="IconGrid"
+                                           ItemsSource="{Binding FilteredItems}"
+                                           SelectedItem="{Binding SelectedIcon, Mode=TwoWay}"/>
+            </ScrollViewer>
+        </Grid>
+
+        <!-- Right: Detail Panel (always visible) -->
+        <Border Grid.Column="1"
+                Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                BorderThickness="1,0,0,0">
+            <ScrollViewer>
+                <StackPanel Margin="20,16" Spacing="14">
+
+                    <!-- Large Icon Preview -->
+                    <Border Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="8" Padding="24" HorizontalAlignment="Stretch">
+                        <StackPanel HorizontalAlignment="Center" Spacing="8">
+                            <icons:SymbolIcon Symbol="{Binding SelectedIcon.Symbol, Mode=OneWay}"
+                                              FontSize="64" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding SelectedIcon.Name, Mode=OneWay}"
+                                       FontSize="14" FontWeight="SemiBold"
+                                       HorizontalAlignment="Center" TextAlignment="Center"
+                                       TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Filled Preview -->
+                    <Border Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="8" Padding="16" HorizontalAlignment="Stretch">
+                        <StackPanel HorizontalAlignment="Center" Spacing="4">
+                            <TextBlock x:Name="FilledVariantText" Text="Filled variant" FontSize="11" Opacity="0.5"
+                                       HorizontalAlignment="Center"/>
+                            <icons:SymbolIcon Symbol="{Binding SelectedIcon.Symbol, Mode=OneWay}"
+                                              FontSize="40" Filled="True"
+                                              HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Code Point -->
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock x:Name="CodePointLabel" Text="Code Point:" FontSize="12" Opacity="0.55"
+                                   VerticalAlignment="Center"/>
+                        <Border Background="#1E1E1E" CornerRadius="4" Padding="8,3">
+                            <TextBlock Text="{Binding SelectedIcon.CodePoint, Mode=OneWay}"
+                                       FontFamily="Consolas,Menlo,monospace" FontSize="12"
+                                       Foreground="#D4D4D4"/>
+                        </Border>
+                    </StackPanel>
+
+                    <Separator/>
+
+                    <!-- XAML Reference (Regular) -->
+                    <StackPanel Spacing="6">
+                        <TextBlock x:Name="XamlRegularLabel" Text="XAML (Regular)" FontSize="13" FontWeight="SemiBold"/>
+                        <Border Background="#1E1E1E" CornerRadius="4" Padding="10,8">
+                            <TextBlock Text="{Binding XamlReference, Mode=OneWay}" TextWrapping="Wrap"
+                                       FontFamily="Consolas,Menlo,monospace" FontSize="11"
+                                       Foreground="#CE9178"/>
+                        </Border>
+                        <Button x:Name="BtnCopyXaml" Content="Copy XAML" Click="CopyXaml_Click"
+                                HorizontalAlignment="Left" Margin="0,2,0,0"/>
+                    </StackPanel>
+
+                    <!-- XAML Reference (Filled) -->
+                    <StackPanel Spacing="6">
+                        <TextBlock x:Name="XamlFilledLabel" Text="XAML (Filled)" FontSize="13" FontWeight="SemiBold"/>
+                        <Border Background="#1E1E1E" CornerRadius="4" Padding="10,8">
+                            <TextBlock Text="{Binding XamlFilledReference, Mode=OneWay}" TextWrapping="Wrap"
+                                       FontFamily="Consolas,Menlo,monospace" FontSize="11"
+                                       Foreground="#CE9178"/>
+                        </Border>
+                        <Button x:Name="BtnCopyXamlFilled" Content="Copy XAML (Filled)"
+                                Click="CopyXamlFilled_Click"
+                                HorizontalAlignment="Left" Margin="0,2,0,0"/>
+                    </StackPanel>
+
+                    <!-- C# Reference -->
+                    <StackPanel Spacing="6">
+                        <TextBlock x:Name="CSharpLabel" Text="C# Code" FontSize="13" FontWeight="SemiBold"/>
+                        <Border Background="#1E1E1E" CornerRadius="4" Padding="10,8">
+                            <TextBlock Text="{Binding CSharpReference, Mode=OneWay}" TextWrapping="Wrap"
+                                       FontFamily="Consolas,Menlo,monospace" FontSize="11"
+                                       Foreground="#9CDCFE"/>
+                        </Border>
+                        <Button x:Name="BtnCopyCSharp" Content="Copy C#"
+                                Click="CopyCSharp_Click"
+                                HorizontalAlignment="Left" Margin="0,2,0,0"/>
+                    </StackPanel>
+
+                    <!-- Enum Reference -->
+                    <StackPanel Spacing="6">
+                        <TextBlock x:Name="EnumLabel" Text="Enum Value" FontSize="13" FontWeight="SemiBold"/>
+                        <Border Background="#1E1E1E" CornerRadius="4" Padding="10,8">
+                            <TextBlock Text="{Binding EnumReference, Mode=OneWay}" TextWrapping="Wrap"
+                                       FontFamily="Consolas,Menlo,monospace" FontSize="11"
+                                       Foreground="#4EC9B0"/>
+                        </Border>
+                        <Button x:Name="BtnCopyEnum" Content="Copy Enum"
+                                Click="CopyEnum_Click"
+                                HorizontalAlignment="Left" Margin="0,2,0,0"/>
+                    </StackPanel>
+
+                    <Separator/>
+
+                    <!-- Import Instructions -->
+                    <StackPanel Spacing="8">
+                        <TextBlock x:Name="HowToImportLabel" Text="How to import" FontSize="13" FontWeight="SemiBold"/>
+                        <TextBlock x:Name="AddCsprojText" Text="Add this to your .csproj:" FontSize="12" Opacity="0.6"
+                                   TextWrapping="Wrap"/>
+                        <Border Background="#1E1E1E" CornerRadius="4" Padding="10,8">
+                            <TextBlock FontFamily="Consolas,Menlo,monospace" FontSize="10"
+                                       Foreground="#D4D4D4" TextWrapping="Wrap">
+&lt;ProjectReference Include="..\Avalonia.FluentIcons\Avalonia.FluentIcons.csproj" /&gt;
+                            </TextBlock>
+                        </Border>
+                        <Button x:Name="BtnCopyProj" Content="Copy ProjectReference"
+                                Click="CopyProjectRef_Click"
+                                HorizontalAlignment="Left" Margin="0,2,0,0"/>
+                    </StackPanel>
+
+                    <Border Height="24"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>

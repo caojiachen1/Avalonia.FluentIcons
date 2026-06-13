@@ -1,0 +1,62 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:icons="using:Avalonia.FluentIcons"
+        xmlns:fac="using:FluentAvalonia.UI.Controls"
+        x:Class="Avalonia.FluentIcons.Gallery.MainWindow"
+        Title="Avalonia Fluent Icons Gallery"
+        Width="1280" Height="800"
+        MinWidth="960" MinHeight="600"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        Icon="/Assets/wpfui.ico">
+
+    <fac:NavigationView x:Name="NavView"
+                        IsBackButtonVisible="False"
+                        IsSettingsVisible="False"
+                        PaneDisplayMode="Left"
+                        OpenPaneLength="230"
+                        SelectionChanged="NavView_SelectionChanged">
+        <fac:NavigationView.MenuItems>
+            <fac:NavigationViewItem Tag="home">
+                <StackPanel Orientation="Horizontal" Spacing="12">
+                    <icons:SymbolIcon Symbol="Home24" FontSize="18"/>
+                    <TextBlock x:Name="NavHomeText" Text="Home" VerticalAlignment="Center"/>
+                </StackPanel>
+            </fac:NavigationViewItem>
+            <fac:NavigationViewItem Tag="icons">
+                <StackPanel Orientation="Horizontal" Spacing="12">
+                    <icons:SymbolIcon Symbol="Emoji24" FontSize="18"/>
+                    <TextBlock x:Name="NavIconsText" Text="Icon Browser" VerticalAlignment="Center"/>
+                </StackPanel>
+            </fac:NavigationViewItem>
+            <fac:NavigationViewItem Tag="fonts">
+                <StackPanel Orientation="Horizontal" Spacing="12">
+                    <icons:SymbolIcon Symbol="TextFont24" FontSize="18"/>
+                    <TextBlock x:Name="NavFontsText" Text="Fonts" VerticalAlignment="Center"/>
+                </StackPanel>
+            </fac:NavigationViewItem>
+            <fac:NavigationViewItem Tag="tutorial">
+                <StackPanel Orientation="Horizontal" Spacing="12">
+                    <icons:SymbolIcon Symbol="BookOpen24" FontSize="18"/>
+                    <TextBlock x:Name="NavTutorialText" Text="Tutorial" VerticalAlignment="Center"/>
+                </StackPanel>
+            </fac:NavigationViewItem>
+        </fac:NavigationView.MenuItems>
+
+        <fac:NavigationView.FooterMenuItems>
+            <fac:NavigationViewItem Tag="settings">
+                <StackPanel Orientation="Horizontal" Spacing="12">
+                    <icons:SymbolIcon Symbol="Settings24" FontSize="18"/>
+                    <TextBlock x:Name="NavSettingsText" Text="Settings" VerticalAlignment="Center"/>
+                </StackPanel>
+            </fac:NavigationViewItem>
+        </fac:NavigationView.FooterMenuItems>
+
+        <fac:NavigationView.Header>
+            <TextBlock x:Name="HeaderTitleText" Text="Icon Browser" FontSize="20" FontWeight="SemiBold"
+                       VerticalAlignment="Center" Margin="4,8,0,8"/>
+        </fac:NavigationView.Header>
+
+        <ContentControl x:Name="ContentArea"/>
+    </fac:NavigationView>
+</Window>
