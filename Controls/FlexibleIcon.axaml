@@ -1,0 +1,33 @@
+<UserControl
+    x:Class="FluentIcons.Gallery.Controls.FlexibleIcon"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ic="using:FluentIcons.Avalonia"
+    xmlns:local="using:FluentIcons.Gallery.Controls"
+    HorizontalAlignment="Center" VerticalAlignment="Center"
+    Classes.UsesSymbol="{CompiledBinding UsesSymbol, RelativeSource={RelativeSource Self}}">
+    <UserControl.Styles>
+        <Style Selector="local|FlexibleIcon">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <ic:FluentIcon
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        FontSize="{TemplateBinding FontSize}"
+                        Icon="{TemplateBinding Icon}"
+                        IconVariant="{TemplateBinding IconVariant}" />
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        <Style Selector="local|FlexibleIcon.UsesSymbol">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <ic:SymbolIcon
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        FontSize="{TemplateBinding FontSize}"
+                        IconVariant="{TemplateBinding IconVariant}"
+                        Symbol="{TemplateBinding Symbol}" />
+                </ControlTemplate>
+            </Setter>
+        </Style>
+    </UserControl.Styles>
+</UserControl>
